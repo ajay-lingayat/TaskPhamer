@@ -126,3 +126,23 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+
+# Mail Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Host for sending e-mail.
+EMAIL_HOST = 'smtp.gmail.com'
+
+# Port for sending e-mail.
+EMAIL_PORT = 587
+
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = 'taskphamer@gmail.com'
+EMAIL_HOST_PASSWORD = 'TaskPhamer@@2810'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+
+# Session Cookie
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30

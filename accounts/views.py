@@ -29,7 +29,7 @@ def register( request ):
              user = User.objects.create_user(username=username,password=password1,email=email)
              user.save()
 
-             raw_query = f"CREATE TABLE {username.upper()}_DATA ( ID SERIAL, CUSTOMER_NAME TEXT NOT NULL, TYPE TEXT NOT NULL, AMOUNT INT NOT NULL, ADD_DATE DATE NOT NULL DEFAULT CURRENT_DATE );"
+             raw_query = f"CREATE TABLE {username.upper()}_DATA ( ID INT NOT NULL, CUSTOMER_NAME TEXT NOT NULL, TYPE TEXT NOT NULL, AMOUNT INT NOT NULL, ADD_DATE TEXT NOT NULL );"
              cursor.execute(raw_query)
 
              messages.success(request, "User Created Successfully!")
@@ -104,42 +104,55 @@ def find_account( request ):
           From = "taskphamer@gmail.com"
           To = mail
           text_content = f"Hello {user},\nHere is your TaskPhamer pasword reset OTP - {otp}"
-          html_content = f"""\
-              <html>
+          html_content = """\
+              <html lang="en-US">
+                  <head>
+                     <style>
+                           html, body{
+                              height: 100%;
+                              margin: 0;
+                              padding: 0;
+                           }
+                           .box{
+                              margin-left: 10%;
+                              margin-top: 20px;
+                              background-color: #4da3ef;
+                              color: #fff;
+                              border: 0;
+                              box-shadow: 2px 2px #999;
+                              width: 80%;
+                           }
+                           button{
+                              font-size: 20px;
+                              border: 0;
+                              background-color: #ff0066;
+                              color: #fff;
+                              padding: 15px 15px;
+                              margin-bottom: 10px;
+                              outline: none;
+                              border-radius: 4px;
+                           }
+                     </style>
+                  </head>
                   <body>
-                       <h2>
-                           Hello {user},
-                       </h2>
-                       <h4>
-                           Here is your TaskPhamer password reset OTP - <label style="color: #4da3ef;">{otp}</label>
-                       </h4>
-                       <h4>
-                           Follow Us On :
-                       </h4>
-                       <ul>
-                           <li>
-                               <a href="#">
-                                   Facebook
-                               </a>
-                           </li>
-                           <li>
-                               <a href="https://www.instagram.com/input_and_print/">
-                                   Instagram
-                               </a>
-                           </li>
-                           <li>
-                               <a href="https://www.youtube.com/channel/UCR7jYPOu0Iun2z1Bdi_pTaQ">
-                                   YouTube
-                               </a>
-                           </li>
-                           <li>
-                               <a href="https://github.com/Ajay2810-hub">
-                                   Github
-                               </a>
-                           </li>
-                       </ul>
+                     <div class="box">
+                           <br>
+                           <center>
+                              <h1>
+                                 Hello """+ user +"""\
+                              </h1>
+                              <h3>
+                                 Here is your Taskphamer password reset OTP
+                              </h3>
+                              <button>
+                                 <label>
+                                       """+ f"{otp}" +"""\
+                                 </label>
+                              </button>
+                           </center>
+                     </div>
                   </body>
-              </html>
+               </html>
               """
           msg = EmailMultiAlternatives(subject, text_content, From, [To])
           msg.attach_alternative(html_content, 'text/html')

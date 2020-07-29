@@ -10,6 +10,44 @@ import datetime
 cursor = connection.cursor()
 
 def index( request ):
+    if request.user.is_authenticated:
+       username = request.user.username
+       username = username.upper()
+       
+       try:
+         raw_query = f"SELECT * FROM {username}_DATA;"
+         cursor.execute(raw_query)
+       except:
+         auth.logout(request)
+         return redirect('/')
+
+       List = cursor.fetchall()
+       N = len(List)
+
+       Debit = 0
+       Credit = 0
+       if N > 0:
+          for i in List:
+              if i[2] == "debit":
+                 Debit += i[3]
+              else:
+                 Credit += i[3]
+          Context = {
+             'Debit': Debit,
+             'Credit': Credit,
+             'List': List,
+          }
+          t = loader.get_template('TaskPhamer/index.html')
+          return HttpResponse(t.render(Context, request))
+       else:
+          context = {
+             'Debit': Debit,
+             'Credit': Credit,
+          }
+          t = loader.get_template('TaskPhamer/index.html')
+          return HttpResponse(t.render(context, request))
+       return render(request, 'TaskPhamer/index.html')
+    else:
        return render(request, 'TaskPhamer/index.html')
 
 def contact( request ):
@@ -44,7 +82,7 @@ def contact( request ):
           msg = EmailMultiAlternatives(subject, text_content, From, [To])
           msg.attach_alternative(html_content, 'text/html')
           msg.send()
-          messages.success(request, 'Mail Sent Successfully!')
+          messages.success(request, 'Message Sent Successfully!')
           return redirect('contact')
        except:
           messages.warning(request, 'Please Check Your Internet Connection!')
@@ -67,10 +105,23 @@ def add_data( request ):
 
        try:
           if username:
-             raw_query = f"INSERT INTO {username}_DATA ( CUSTOMER_NAME, TYPE, AMOUNT ) VALUES ( \'{customer_name}\', \'{Type}\', \'{amount}\' );"
+
+             cursor.execute(f'SELECT * FROM {username}_DATA;')
+             ID = len(cursor.fetchall())+1
+
+             current_date = datetime.datetime.now()
+             Day = current_date.day
+             Month = current_date.month
+             Year = current_date.year
+             Months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+             Month = Months[Month]
+             current_date = f"{Month}. {Day}, {Year}"
+
+             raw_query = f"INSERT INTO {username}_DATA VALUES ({ID} ,\'{customer_name}\', \'{Type}\', {int(amount)}, \'{current_date}\' );"
              cursor.execute(raw_query)
-       except:
-          print('Data not inserted!')
+             cursor.execute(f'select * from {username}_DATA;')
+       except Exception as e:
+          print('Data not inserted!',e)
 
        return redirect('/')
     else:
@@ -99,7 +150,15 @@ def edit_data( request ):
           debit_or_credit = debit_or_credit.lower()
           ID = request.POST['data-id']
 
-          raw_query = f"UPDATE {username}_DATA SET CUSTOMER_NAME = \'{customer_name}\', TYPE = \'{debit_or_credit}\', AMOUNT = {amount}, ADD_DATE = DEFAULT WHERE ID = {ID};"
+          current_date = datetime.datetime.now()
+          Day = current_date.day
+          Month = current_date.month
+          Year = current_date.year
+          Months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+          Month = Months[Month]
+          current_date = f"{Month}. {Day}, {Year}"
+
+          raw_query = f"UPDATE {username}_DATA SET CUSTOMER_NAME = \'{customer_name}\', TYPE = \'{debit_or_credit}\', AMOUNT = {amount}, ADD_DATE = \'{current_date}\' WHERE ID = {ID};"
           cursor.execute(raw_query)
           return redirect('/')
        else:
@@ -148,7 +207,7 @@ def generate_pdf( request ):
           'deb': deb,
           'cred': cred,
        }
-       t = loader.get_template('generate_pdf.html')
+       t = loader.get_template('TaskPhamer/generate_pdf.html')
 
        return HttpResponse(t.render(context, request))
     else:

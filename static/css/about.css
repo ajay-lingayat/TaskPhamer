@@ -13,7 +13,6 @@ body{
 }
 .group .about-taskphamer{
     color: #fff;
-    text-shadow: 3px 3px rgba(0, 0, 0, 0.4);
 }
 .group{
     width: 100%;
@@ -21,7 +20,6 @@ body{
 .group .para-about-taskphamer{
     color: #fff;
     font-size: 1.6rem;
-    text-shadow: 3px 3px 3px grey;
 }
 .group .about-me{
     color: #fff;
