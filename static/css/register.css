@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Galada&family=Ubuntu:ital,wght@1,300&display=swap");
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #16181a;
+}
+.Container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 360px;
+    transform: translate(-50%, -50%);
+}
+.Container .icon{
+    color: #fff;
+    text-align: center;
+}
+.Container h1{
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px;
+}
+.Container .icon{
+    margin-bottom: 10px;
+}
+.Container form .form-group input{
+    margin-bottom: 20px;
+}
+.Container form .form-group a{
+    color: #fff;
+    text-decoration: none;
+    transition: .2s linear;
+}
+.Container form .form-group a:hover{
+    color: #4da3ef;
+}
+.Container form .form-group button[type="submit"]{
+    margin-bottom: 20px;
+}
+.Container form .form-group p{
+    color: #999;
+}
+.Container form .form-group .remember-me{
+    color: #fff;
+}
+.Container form .form-group .remember-me input,
+.Container form .form-group .remember-me label{
+    cursor: pointer;
+}

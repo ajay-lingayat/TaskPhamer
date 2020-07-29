@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Chrome Theme Color -->
+        <meta name="theme-color" content="#4da3ef">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Page Title -->
+        <title>taskphamer | Home</title>
+
+        <!-- Font Awesome kit-->
+        <script src="https://kit.fontawesome.com/8065491d7c.js" crossorigin="anonymous"></script>
+        
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static '/css/index.css' %}">
+
+        <!-- Javascript -->
+        <script src="{% static '/js/index.js' %}"></script>
+
+        <script>
+            window.onload = function(){
+                document.getElementsByClassName("view-btn")[0].onmouseover = function(){
+                    document.getElementById("open-link").style.color = "#fff";
+                }
+                document.getElementsByClassName("view-btn")[0].onmouseout = function(){
+                    document.getElementById("open-link").style.color = "#4da3ef";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        
+        <!-- Navbar Starts -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+
+            <!-- Navbar Toggler Button Starts -->
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#mynav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Toggler Button Ends -->
+
+            <!-- Navbar Heading Starts -->
+            <a href="#" class="navbar-brand">
+                taskphamer
+            </a>
+            <!-- Navbar Heading Ends -->
+
+            <!-- Navbar Collapse Body Starts -->
+            <div class="collapse navbar-collapse" id="mynav">
+
+                <!-- Left-Aligned Navbar Items Starts -->
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a href="/" class="nav-link">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about" class="nav-link">
+                            About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact" class="nav-link">
+                            Contact Us
+                        </a>
+                    </li>
+                </ul>
+                <!-- Left-Aligned Navbar Items Ends -->
+
+                <!-- Right-Aligned Navbar Items Starts -->
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            Hello, {{ user.username }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="accounts/logout" class="nav-link">
+                            Logout
+                            <i class="fa fa-sign-in"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="accounts/login" class="nav-link">
+                            <i class="fas fa-user"></i>
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="accounts/register" class="nav-link">
+                            <i class="fa fa-sign-in"></i>
+                            Sign Up
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <!-- Right-Aligned Navbar Items Ends -->
+
+            </div>
+            <!-- Navbar Collapse body Ends -->
+
+        </nav>
+        <!-- Navbar Ends -->
+
+        <!-- Home Section -->
+        {% if not user.is_authenticated %}
+        <section id="home">
+            <div class="inner-width">
+                <div class="content">
+                    <h1>
+                        taskphamer
+                    </h1>
+                    <p>
+                        A game of numbers
+                    </p>
+                    <div class="sm">
+                        <a href="https://www.facebook.com/ajay.lingayat.520/" class="fa fa-facebook"></a>
+                        <a href="https://www.instagram.com/input_and_print/" class="fa fa-instagram"></a>
+                        <a href="https://www.youtube.com/channel/UCR7jYPOu0Iun2z1Bdi_pTaQ" class="fa fa-youtube"></a>
+                        <a href="https://github.com/Ajay2810-hub" class="fa fa-github"></a>
+                    </div>
+                    <div class="buttons">
+                        <a href="contact">Contact Us</a>
+                        <a href="accounts/register">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% else %}
+        <section id="home">
+            <div class="book">
+                <div class="counts">
+                    <div class="credit">
+                        <div class="ammount">
+                            {{ Credit }}
+                        </div>
+                        <p>
+                            You will give
+                        </p>
+                    </div>
+                    <div class="debit">
+                        <div class="ammount">
+                            {{ Debit }}
+                        </div>
+                        <p>
+                            You will get
+                        </p>
+                    </div>
+                    <a href="generate-pdf" style="text-decoration: none; transition: .2s linear;" id="open-link">
+                        <button class="view-btn" style="transition: .2s linear;">
+                            View Report
+                        </button>
+                    </a>
+                </div>
+
+                <div class="group">
+                    <table class="table">
+                        <thead class="thead">
+                            <tr>
+                            <th scope="col">Sr No.</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    
+                          {% for i in List1 %}
+                          <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.1 }}</td>
+                            <td class="{{ i.2 }}-item">{{ i.3 }}</td>
+                            <td>{{ i.4 }}</td>
+                            <td>
+                                <button class="edit-btn" onclick="click_me('{{ i.1 }}','{{ i.3 }}','{{ i.0 }}')">
+                                    <a href="#">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="del-btn">
+                                    <a href="delete-data-{{ i.0 }}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </button>
+                            </td>
+                          </tr>
+                          {% endfor %}
+    
+                        </tbody>
+                      </table>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="display-form">
+            <button class="close-btn">
+                <i class="fa fa-times fa-2x"></i>
+            </button>
+            <form action="add-data" method="POST">
+                {% csrf_token %}
+                <center>
+                    <h1>
+                        Add Customer
+                    </h1>
+                </center>
+                <div class="form-group">
+                    <input type="text" name="customer-name" id="customer-name" placeholder="Customer Name" class="form-control" autocomplete="off" required>
+                    <input type="number" name="amount" id="amount" placeholder="Amount" class="form-control" min="1" pattern="[0-9]" required>
+                    <select name="credit_or_debit" id="credit_or_debit" class="form-control" required>
+                        <option value="Debit">Debit</option>
+                        <option value="Credit">Credit</option>
+                    </select>
+                    <center>
+                        <button class="btn btn-success btn-lg">
+                            Update
+                        </button>
+                    </center>
+                </div>
+            </form>
+        </div>
+
+        <div class="display-form-1">
+            <button class="close-btn-1">
+                <i class="fa fa-times fa-2x"></i>
+            </button>
+            <form action="edit-data" method="POST">
+                {% csrf_token %}
+                <center>
+                    <h1>
+                        Update Customer
+                    </h1>
+                </center>
+                <div class="form-group">
+                    <input type="text" name="customer-name" id="customer-name-1" placeholder="Customer Name" class="form-control" autocomplete="off" required>
+                    <input type="number" name="amount" id="amount-1" placeholder="Amount" class="form-control" min="1" pattern="[0-9]" required>
+                    <select name="credit_or_debit" id="credit_or_debit" class="form-control">
+                        <option value="Debit">Debit</option>
+                        <option value="Credit">Credit</option>
+                    </select>
+                    <input type="hidden" name="data-id" id="ID">
+                    <center>
+                        <button class="btn btn-success btn-lg">
+                            Update
+                        </button>
+                    </center>
+                </div>
+            </form>
+        </div>
+
+        <button class="add-btn btn btn-primary">
+            <i class="fa fa-plus"></i>
+        </button>
+        
+        {% endif %}
+
+    </body>
+</html>

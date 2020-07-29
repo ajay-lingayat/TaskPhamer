@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Galada&family=Ubuntu:ital,wght@1,300&display=swap");
+html, body{
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.template{
+    position: relative;
+    width: 95%;
+    left: 2.5%;
+}
+.template #heading{
+    color: #4da3ef;
+    font-family: 'Ubuntu', sans-serif;
+}
+.debit-item{
+    color: #ff0066;
+}
+.credit-item{
+    color: #228B22;
+}
