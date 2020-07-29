@@ -9,3 +9,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
 ]
 urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler404 = 'Designer.views.Error404'
+handler500 = 'Designer.views.Error500'
