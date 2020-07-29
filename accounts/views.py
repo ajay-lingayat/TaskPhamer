@@ -11,9 +11,8 @@ from django.db import connection
 cursor = connection.cursor()
 
 def register( request ):
-	cursor = connection.cursor()
     if request.method == "POST":
-
+       cursor = connection.cursor()
        username = request.POST["username"]
        email = request.POST["email"]
        password1 = request.POST["password1"]
