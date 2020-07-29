@@ -11,6 +11,7 @@ cursor = connection.cursor()
 
 def index( request ):
     if request.user.is_authenticated:
+       cursor = connection.cursor()
        username = request.user.username
        username = username.upper()
        
@@ -105,7 +106,7 @@ def add_data( request ):
 
        try:
           if username:
-
+             cursor = connection.cursor()
              cursor.execute(f'SELECT * FROM {username}_DATA;')
              ID = len(cursor.fetchall())+1
 
@@ -129,6 +130,7 @@ def add_data( request ):
 
 def delete_data( request, data_index ):
     if request.user.is_authenticated:
+       cursor = connection.cursor()
        username = request.user.username
        username = username.upper()
 
@@ -141,6 +143,7 @@ def delete_data( request, data_index ):
 def edit_data( request ):
     if request.method == "POST":
        if request.user.is_authenticated:
+          cursor = connection.cursor()
           username = request.user.username
           username = username.upper()
 
@@ -168,6 +171,7 @@ def edit_data( request ):
 
 def generate_pdf( request ):
     if request.user.is_authenticated:
+       cursor = connection.cursor()
        username = request.user.username
        username = username.upper()
 
