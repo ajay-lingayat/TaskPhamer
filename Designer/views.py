@@ -233,6 +233,9 @@ def about( request ):
 
 def Error404(request, exception):
     return render(request, 'errors/404.html', {})
+    
+def Error403(request, exception):
+    return render(request, 'errors/403.html', {})
 
 def Error500(request):
     return render(request, 'errors/500.html', {})

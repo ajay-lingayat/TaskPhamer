@@ -14,4 +14,5 @@ admin.site.site_header = 'TaskPhamer'
 admin.site.index_title = 'TaskPhamer administration'
 
 handler404 = 'Designer.views.Error404'
+handler403 = 'Designer.views.Error403'
 handler500 = 'Designer.views.Error500'
