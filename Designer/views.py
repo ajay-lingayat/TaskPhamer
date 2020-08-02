@@ -6,11 +6,10 @@ from django.core.mail import EmailMultiAlternatives
 from django.db import connection
 from django.template import loader
 import datetime
+from django.views.decorators.clickjacking import xframe_options_deny
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 cursor = connection.cursor()
-
-django.views.decorators.clickjacking import xframe_options_deny
-from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 @xframe_options_deny
 def view_one(request):
