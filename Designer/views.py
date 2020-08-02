@@ -17,7 +17,7 @@ def view_one(request):
 
 @xframe_options_sameorigin
 def view_two(request):
-    return HttpResponse("Display in a frame if it's from the same origin as me.")
+    return HttpResponse("TaskPhamer/index.html")
 
 def index( request ):
     if request.user.is_authenticated:
