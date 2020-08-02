@@ -146,3 +146,6 @@ EMAIL_USE_SSL = False
 
 # Session Cookie
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
+# Allows inline element to access site
+X_FRAME_OPTIONS = 'SAMEORIGIN'
